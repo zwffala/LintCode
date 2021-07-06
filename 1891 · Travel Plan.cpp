@@ -18,38 +18,29 @@ public:
 		// https://www.youtube.com/watch?v=DKCbsiDBN6c&ab_channel=AbdulBari 
 		
 		int len = arr.size();
-		deque<int> path{0};
 		vector<bool> used(len, false);
 		// iterate all paths expect node 0
-		dfs(arr, len, 1, path, used);
+		dfs(arr, len, 1, used, 0, 0);
 		return res;
 
     }
 
 private:
-	void dfs(const vector<vector<int>>& arr, int len, int depth, deque<int> path, vector<bool>& used ) {
+	void dfs(const vector<vector<int>>& arr, int len, int depth, vector<bool>& used, int distance, int parent ) {
 		if (depth == len) {
-			path.push_back(0);
-			for (int i = 0; i < path.size()-1; ++i) {
-				distance += arr[path[i]][path[i+1]];
-			}
-			cout<<"distance: "<<distance<<endl;
+			distance += arr[parent][0];
 			res = min(distance, res);
-			distance = 0;
 			return;
 		}
 		for (int i = 1; i < len; ++i) {
 			if (!used[i]){
-				path.emplace_back(i);
 				used[i] = true;
-				dfs(arr, len, depth+1, path, used);
-				path.pop_back();
+				dfs(arr, len, depth+1, used, distance + arr[parent][i], i);
 				used[i] = false;
 			}
 		}
 	}
 
-	int distance = 0;
 };
 
 int main() {
