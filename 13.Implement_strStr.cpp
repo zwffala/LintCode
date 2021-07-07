@@ -27,7 +27,6 @@ public:
 				} else {
 					j = 0;
 				}
-
 			}
 		}
 		return -1;
