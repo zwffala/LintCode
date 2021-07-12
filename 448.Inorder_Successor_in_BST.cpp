@@ -10,7 +10,6 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
-
 class Solution {
 public:
     /*
@@ -18,71 +17,36 @@ public:
      * @param p: You need find the successor node of p.
      * @return: Successor of p.
      */
-	TreeNode* succssor = NULL;
-	const TreeNode* nodeP = NULL;
-	bool foundNodeP = false;
+    TreeNode* successor = NULL;
+    const TreeNode* target = NULL;
+    bool foundTarget = false;
     TreeNode * inorderSuccessor(TreeNode * root, TreeNode * p) {
         // write your code here
-		nodeP = p;
-		inorderTraverse(root);
-		return succssor;
+        target = p;
+        inorderTraverse(root);
+        return successor;
     }
 private:
-	void inorderTraverse(TreeNode *node) {
-		if (node != NULL) {
-			inorderTraverse(node->left);
-			if (node->val == nodeP->val) {
-				// next traverse node is the successor
-				foundNodeP = true;
-			} else {
-				if (foundNodeP) {
-					succssor = node;
-                    foundNodeP = false;
-					return;
-				}
-			}
-			inorderTraverse(node->right);
-		}
-        return;
-	}
+    void inorderTraverse(TreeNode *node) {
+        if (node == NULL) {
+            return;
+        }
+        if (successor) {
+            return;
+        }
+        inorderTraverse(node->left);
+        if (node == target) {
+            foundTarget = true;
+        } else {
+            if (foundTarget) {
+                successor = node;
+                foundTarget = false;
+                return;
+            }
+        }
+        inorderTraverse(node->right);
+    }
 };
-// class Solution {
-// public:
-//     /*
-//      * @param root: The root of the BST.
-//      * @param p: You need find the successor node of p.
-//      * @return: Successor of p.
-//      */
-//     TreeNode* successor = NULL;
-//     const TreeNode* target = NULL;
-//     bool foundTarget = false;
-//     TreeNode * inorderSuccessor(TreeNode * root, TreeNode * p) {
-//         // write your code here
-//         target = p;
-//         inorderTraverse(root);
-//         return successor;
-//     }
-// private:
-//     void inorderTraverse(TreeNode *node) {
-//         if (node == NULL) {
-//             return;
-//         }
-//         if (successor) {
-//             return;
-//         }
-//         inorderTraverse(node->left);
-//         if (node == target) {
-//             foundTarget = true;
-//         } else {
-//             if (foundTarget) {
-//                 successor = node;
-//                 foundTarget = false;
-//                 return;
-//             }
-//         }
-//         inorderTraverse(node->right);
-//     }
-// };
 
 int main() {
     Solution s;
