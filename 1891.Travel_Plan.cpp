@@ -35,10 +35,8 @@ private:
 		for (int i = 1; i < len; ++i) {
 			if (!used[i]){
 				used[i] = true;
-				cout<<"before recursion"<<endl;
 				dfs(arr, len, depth+1, used, distance + arr[parent][i], i);
 				used[i] = false;
-				cout<<"used["<<i<<"] = false"<<endl;
 			}
 		}
 	}
