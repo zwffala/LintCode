@@ -19,7 +19,7 @@ using namespace std;
 class Solution {
 public:
     enum Status {
-        SELL = 0,
+        SOLD = 0,
         HOLD = 1
     };
 
@@ -35,26 +35,26 @@ public:
             maxProfits[0][numTransactions][1] = -prices[0];
         }
         for (int i = 0; i < prices.size(); ++i) {
-            maxProfits[i][0][SELL] = 0;
+            maxProfits[i][0][SOLD] = 0;
             maxProfits[i][0][HOLD] = -prices[i];
         }
         
         for (int i = 1; i < prices.size(); ++i) {
             for (int numTransactions = 1; numTransactions <= k; ++numTransactions) {
-                maxProfits[i][numTransactions][SELL] = max(maxProfits[i-1][numTransactions][SELL], maxProfits[i-1][numTransactions][HOLD] + prices[i]);
-                maxProfits[i][numTransactions][HOLD] = max(maxProfits[i-1][numTransactions][HOLD], maxProfits[i-1][numTransactions-1][SELL] - prices[i]);
+                maxProfits[i][numTransactions][SOLD] = max(maxProfits[i-1][numTransactions][SOLD], maxProfits[i-1][numTransactions][HOLD] + prices[i]);
+                maxProfits[i][numTransactions][HOLD] = max(maxProfits[i-1][numTransactions][HOLD], maxProfits[i-1][numTransactions-1][SOLD] - prices[i]);
 
                 cout<<"i: "<<i<<" k: "<<numTransactions<<endl;
-                cout<<"maxProfits[i-1][numTransactions][SELL]"<<maxProfits[i-1][numTransactions][SELL]<<endl;
+                cout<<"maxProfits[i-1][numTransactions][SOLD]"<<maxProfits[i-1][numTransactions][SOLD]<<endl;
                 cout<<"maxProfits[i-1][numTransactions][HOLD]"<<maxProfits[i-1][numTransactions][HOLD]<<endl;
-                cout<<"MP["<<i-1<<"]["<<numTransactions<<"]["<<SELL<<"]"<<maxProfits[i-1][numTransactions][SELL]<<endl;
+                cout<<"MP["<<i-1<<"]["<<numTransactions<<"]["<<SOLD<<"]"<<maxProfits[i-1][numTransactions][SOLD]<<endl;
                 cout<<"MP["<<i-1<<"]["<<numTransactions<<"]["<<HOLD<<"]"<<maxProfits[i-1][numTransactions][HOLD]<<endl;
             }
         }
 
         long ans = 0;
         for (int numTransactions = 0; numTransactions <=k; ++numTransactions) {
-            ans = max(ans, maxProfits[prices.size() - 1][numTransactions][SELL]);
+            ans = max(ans, maxProfits[prices.size() - 1][numTransactions][SOLD]);
         }
         return ans;
     }
