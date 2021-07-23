@@ -34,7 +34,8 @@ private:
 
        int midIndex = (start + end) / 2;
        if (target == nums[midIndex]) {
-           return binarySearchHelper(nums, target, start, midIndex - 1, midIndex);
+           targetIndex = midIndex;
+           return binarySearchHelper(nums, target, start, midIndex - 1, targetIndex);
        }
        if (target < nums[midIndex]) {
            return binarySearchHelper(nums, target, start, midIndex - 1, targetIndex);
